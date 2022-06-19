@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 enum Suit
 {
     clubs,
@@ -145,4 +146,153 @@ public class Cards
 	        }
     	}
     }
+=======
+enum Suit
+{
+    clubs,
+    diamonds,
+    hearts,
+    spads
+}
+
+class Card
+{
+    public Suit suit;
+    public int number;
+}
+
+public class Cards
+{
+    public static void Main(string[] args)
+    {
+        System.Random random = new System.Random();
+        
+        // init cards
+        Card[] cards = new Card[52];
+        int cardIndex = 0;
+        for(Suit suit = Suit.clubs; true; )
+        {
+            for(int number = 1; number <= 13; ++number)
+            {
+                Card card = new Card();
+                card.suit = suit;
+                card.number = number;
+                cards[cardIndex] = card;
+                ++cardIndex;
+            }
+            
+            if(suit == Suit.clubs)
+    		{
+    			suit = Suit.diamonds;
+    		}
+    		else if(suit == Suit.diamonds)
+    		{
+    			suit = Suit.hearts;
+    		}
+    		else if(suit == Suit.hearts)
+    		{
+    			suit = Suit.spads;
+    		}
+    		else
+    		{
+    			break;
+    		}
+        }
+	
+    	// shuffle
+    	for(int i = 0; i < 52; ++i)
+    	{
+    		int randomCardIndex = random.Next() % 52;
+    		Card tempCard = cards[i];
+    		cards[i] = cards[randomCardIndex];
+    		cards[randomCardIndex] = tempCard;
+    	}
+    	
+    	// wait for request
+    	int nextCardIndex = 0;
+    	while(true)
+    	{
+    	    System.Console.WriteLine();
+    	    System.Console.WriteLine();
+    	    System.Console.WriteLine();
+    	    System.Console.WriteLine("press enter to request for cards.");
+    	    System.Console.ReadLine();
+    	    
+    	    int endCardIndex = nextCardIndex + 7;
+    	    int requireMoreCards = endCardIndex - 52;
+    	    if(endCardIndex >= 52)
+    	    {
+    	        endCardIndex = 52;
+    	    }
+    	    
+    	    for(int i = nextCardIndex; i < endCardIndex; ++i)
+    	    {
+    	        System.Console.Write("Card suit:");
+    	        if(cards[i].suit == Suit.clubs)
+    	        {
+    	            System.Console.Write("clubs");
+    	        }
+    			else if(cards[i].suit == Suit.diamonds)
+    			{
+    				System.Console.Write("diamonds");
+    			}
+    			else if(cards[i].suit == Suit.hearts)
+    			{
+    				System.Console.Write("hearts");
+    			}
+    			else if(cards[i].suit == Suit.spads)
+    			{
+    				System.Console.Write("spads");
+    			}
+    			else
+    			{
+    				System.Console.Write("error");
+    			}
+    	        System.Console.WriteLine(", card number:" + cards[i].number);
+	        }
+	        nextCardIndex = endCardIndex;
+	        
+	        if(requireMoreCards >= 0)
+	        {
+	            // hint
+	            System.Console.WriteLine("shuffle the current cards, and reload . . .");
+	            
+	            // shuffle
+	            // just shuffle the current card for performance, you can also reinitialize the card set if you want
+	            for(int i = 0; i < 52; ++i)
+	            {
+	                int randomCardIndex = random.Next() % 52;
+	                Card tempCard = cards[i];
+	                cards[i] = cards[randomCardIndex];
+	                cards[randomCardIndex] = tempCard;
+	            }
+	            
+	            // reload
+	            nextCardIndex = 0;
+	            endCardIndex = 0 + requireMoreCards;
+	            for(int i = nextCardIndex; i < endCardIndex; ++i)
+	            {
+	                System.Console.Write("card suit:");
+	                if(cards[i].suit == Suit.clubs)
+	                {
+	                    System.Console.Write("clubs");
+	                }
+	                else if(cards[i].suit == Suit.diamonds)
+	                {
+	                    System.Console.Write("hearts");
+	                }
+	                else if(cards[i].suit == Suit.spads)
+	                {
+	                    System.Console.Write("spads");
+	                }
+	                else
+	                {
+	                    System.Console.Write("error");
+	                }
+	                System.Console.WriteLine(", card number:" + cards[i].number);
+	            }
+	        }
+    	}
+    }
+>>>>>>> 97a9c21d9083a974a3c9a94080ca83ed6f05b209
 }
